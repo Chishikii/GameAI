@@ -8,6 +8,7 @@ public class BoidManager : MonoBehaviour
     public BoidSettings settings;
     public Boid.Steering_Behaviour behaviourType;
     public Transform target;
+    public bool targeting = false;
 
     void Start()
     {
@@ -48,7 +49,7 @@ public class BoidManager : MonoBehaviour
                     }
                 }
             }
-            boids[i].UpdateBoid(behaviourType);
+            boids[i].UpdateBoid(behaviourType, targeting);
         }
     }
 }

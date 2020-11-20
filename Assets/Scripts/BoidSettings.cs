@@ -11,13 +11,13 @@ public class BoidSettings : ScriptableObject
     public float arriveSlowRadius = 5f;
     public float avoidanceRadius = 1;
 
-    public float viewRadius = 10f;
     public float perceptionRadius = 2f;
 
     [Header("Weights")]
     public float alignWeight = 1;
     public float cohesionWeight = 1;
     public float seperateWeight = 1;
+    public float targetWeight = 1;
 
     [Header("Wander")]
     public float wanderCircleOffset = 7f;

@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ad67ffb2feaca7499ed3b8ac48b2f67, type: 3}
   m_Name: BaseSettings
   m_EditorClassIdentifier: 
-  maxSpeed: 7
-  maxSteerForce: 2
+  maxSpeed: 5
+  maxSteerForce: 5
   arriveSlowRadius: 20
   avoidanceRadius: 3
-  viewRadius: 12
-  perceptionRadius: 10
-  alignWeight: 1
+  perceptionRadius: 2.5
+  alignWeight: 2
   cohesionWeight: 1
-  seperateWeight: 2
+  seperateWeight: 2.5
   wanderCircleOffset: 5
   wanderCircleRadius: 10
   obstacleMask:

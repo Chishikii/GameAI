@@ -44,12 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dbae2e13a504064cace6efc613def0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpeed: 2
-  maxSpeed: 5
-  maxSteerForce: 3
+  settings: {fileID: 0}
   position: {x: 0, y: 0, z: 0}
   forward: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
+  steeringForce: {x: 0, y: 0, z: 0}
+  avgFlockHeading: {x: 0, y: 0, z: 0}
+  avgAvoidanceHeading: {x: 0, y: 0, z: 0}
+  centreOfFlockmates: {x: 0, y: 0, z: 0}
+  numPerceivedFlockmates: 0
 --- !u!1001 &4154384415608217699
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,17 +118,17 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 09cea7df0de2f4a8e9685c65efc5715d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 09cea7df0de2f4a8e9685c65efc5715d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 09cea7df0de2f4a8e9685c65efc5715d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: -1504981713932161579, guid: 09cea7df0de2f4a8e9685c65efc5715d,
         type: 3}

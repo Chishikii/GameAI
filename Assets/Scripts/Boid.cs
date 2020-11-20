@@ -54,19 +54,19 @@ public class Boid : MonoBehaviour
         avgFlockHeading = Vector3.zero;
     }
 
-    public void UpdateBoid(Steering_Behaviour behaviourType)
+    public void UpdateBoid(Steering_Behaviour behaviourType, bool targeting)
     {
         if (behaviourType == Steering_Behaviour.DynamicArrive)
         {
-            DynamicArrive(target);
+            DynamicArrive();
         }
         else if (behaviourType == Steering_Behaviour.DynamicFlee)
         {
-            DynamicFlee(target);
+            DynamicFlee();
         }
         else if (behaviourType == Steering_Behaviour.DynamicSeek)
         {
-            DynamicSeek(target);
+            DynamicSeek();
         }
         else if (behaviourType == Steering_Behaviour.DynamicWander)
         {
@@ -74,7 +74,7 @@ public class Boid : MonoBehaviour
         }
         else if (behaviourType == Steering_Behaviour.Flocking)
         {
-            VelocityMatching();
+            Flocking(targeting);
         }
 
         UpdateState();
@@ -95,7 +95,7 @@ public class Boid : MonoBehaviour
         {
             Vector3 collisionAvoidDir = ObstacleRays();
             Vector3 collisionAvoidForce = SteerTowards(collisionAvoidDir) * settings.avoidCollisionWeight;
-            steeringForce = collisionAvoidForce;
+            steeringForce += collisionAvoidForce;
         }
 
         //velocity
@@ -113,13 +113,13 @@ public class Boid : MonoBehaviour
         Debug.DrawLine(position, position + steeringForce, Color.green);
     }
 
-    void DynamicSeek(Transform target)
+    void DynamicSeek()
     {
         Vector3 offsetToTarget = (target.position - position);
         steeringForce = offsetToTarget.normalized * settings.maxSteerForce;
     }
 
-    void DynamicFlee(Transform target)
+    void DynamicFlee()
     {
         //Max Distance?
         Vector3 offsetToTarget = (position - target.position);
@@ -141,7 +141,7 @@ public class Boid : MonoBehaviour
         }
     }
 
-    void DynamicArrive(Transform target)
+    void DynamicArrive()
     {
         Vector3 desiredVelocity = (target.position - position);
         float distance = desiredVelocity.magnitude;
@@ -162,9 +162,16 @@ public class Boid : MonoBehaviour
         Debug.DrawLine(position, position + velocity, Color.red);
     }
 
-    void VelocityMatching()
+    void Flocking(bool targeting)
     {
-        if (numPerceivedFlockmates != 0)
+        steeringForce = Vector3.zero;
+        if (target != null && targeting)
+        {
+            Vector3 offsetToTarget = (target.position - position);
+            steeringForce = SteerTowards(offsetToTarget) * settings.targetWeight;
+        }
+
+        if (numPerceivedFlockmates > 1)
         {
             centreOfFlockmates /= numPerceivedFlockmates;
 
@@ -177,8 +184,8 @@ public class Boid : MonoBehaviour
             steeringForce += alignmentForce;
             steeringForce += cohesionForce;
             steeringForce += seperationForce;
-            UpdateState();
         }
+        UpdateState();
     }
 
     bool IsHeadingForCollision()
