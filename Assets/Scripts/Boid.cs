@@ -19,7 +19,7 @@ public class Boid : MonoBehaviour
     public Vector3 centreOfFlockmates;
     [HideInInspector]
     public int numPerceivedFlockmates;
-    
+
     [HideInInspector]
     public Transform pathTarget;
     [HideInInspector]
@@ -62,29 +62,26 @@ public class Boid : MonoBehaviour
 
     public void UpdateBoid(Steering_Behaviour behaviourType, bool targeting)
     {
-        if (behaviourType == Steering_Behaviour.DynamicArrive)
+        switch (behaviourType)
         {
-            DynamicArrive();
-        }
-        else if (behaviourType == Steering_Behaviour.DynamicFlee)
-        {
-            DynamicFlee();
-        }
-        else if (behaviourType == Steering_Behaviour.DynamicSeek)
-        {
-            DynamicSeek();
-        }
-        else if (behaviourType == Steering_Behaviour.DynamicWander)
-        {
-            DynamicWander();
-        }
-        else if (behaviourType == Steering_Behaviour.Flocking)
-        {
-            Flocking(targeting);
-        }
-        else if (behaviourType == Steering_Behaviour.PathGrapplingHooks)
-        {
-            PathGrapplingHooks();
+            case Steering_Behaviour.DynamicArrive:
+                DynamicArrive();
+                break;
+            case Steering_Behaviour.DynamicFlee:
+                DynamicFlee();
+                break;
+            case Steering_Behaviour.DynamicSeek:
+                DynamicSeek();
+                break;
+            case Steering_Behaviour.DynamicWander:
+                DynamicWander();
+                break;
+            case Steering_Behaviour.Flocking:
+                Flocking(targeting);
+                break;
+            case Steering_Behaviour.PathGrapplingHooks:
+                PathGrapplingHooks();
+                break;
         }
 
         UpdateState();
