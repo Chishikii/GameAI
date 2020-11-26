@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Boid : MonoBehaviour
 {
@@ -21,6 +19,11 @@ public class Boid : MonoBehaviour
     public Vector3 centreOfFlockmates;
     [HideInInspector]
     public int numPerceivedFlockmates;
+    
+    [HideInInspector]
+    public Transform pathTarget;
+    [HideInInspector]
+    public int pathIndex;
 
     //Cached
     Material material;
@@ -33,7 +36,8 @@ public class Boid : MonoBehaviour
         DynamicFlee,
         DynamicSeek,
         DynamicWander,
-        Flocking
+        Flocking,
+        PathGrapplingHooks
     }
     void Awake()
     {
@@ -44,6 +48,8 @@ public class Boid : MonoBehaviour
     public void Initialize(BoidSettings settings, Transform target)
     {
         this.target = target;
+        this.pathTarget = null;
+        pathIndex = 0;
         this.settings = settings;
         position = cachedTransform.position;
         forward = cachedTransform.forward;
@@ -75,6 +81,10 @@ public class Boid : MonoBehaviour
         else if (behaviourType == Steering_Behaviour.Flocking)
         {
             Flocking(targeting);
+        }
+        else if (behaviourType == Steering_Behaviour.PathGrapplingHooks)
+        {
+            PathGrapplingHooks();
         }
 
         UpdateState();
@@ -116,6 +126,12 @@ public class Boid : MonoBehaviour
     void DynamicSeek()
     {
         Vector3 offsetToTarget = (target.position - position);
+        steeringForce = offsetToTarget.normalized * settings.maxSteerForce;
+    }
+
+    void PathGrapplingHooks()
+    {
+        Vector3 offsetToTarget = (pathTarget.position - position);
         steeringForce = offsetToTarget.normalized * settings.maxSteerForce;
     }
 

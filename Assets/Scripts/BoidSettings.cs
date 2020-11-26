@@ -10,6 +10,7 @@ public class BoidSettings : ScriptableObject
     public float maxSteerForce = 5f;
     public float arriveSlowRadius = 5f;
     public float avoidanceRadius = 1;
+    public float pathArriveDistance = 2f;
 
     public float perceptionRadius = 2f;
 
