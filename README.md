@@ -12,7 +12,7 @@ Implementation of Steering Behaviours in Unity with flying Boids
 - **Collision Avoidance**
   - Avoid walls and obstacles while flying
 - **Flocking**
-  - Simulates Flocking behaviour of Birds. Consists of:
+  - Simulates flocking behaviour of birds. Consists of:
     - Seperation, Cohesion, Alignment
 - **Path Grappling Hooks**
   - Follow a path
