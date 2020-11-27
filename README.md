@@ -16,5 +16,3 @@ Implementation of Steering Behaviours in Unity with flying Boids
     - Seperation, Cohesion, Alignment
 - **Path Grappling Hooks**
   - Follow a path
-  
-  ## Screenshots
