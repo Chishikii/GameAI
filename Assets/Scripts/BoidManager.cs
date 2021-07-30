@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class BoidManager : MonoBehaviour
 {
-    Boid[] boids;
+    public Boid[] boids;
     public BoidSettings settings;
     public Boid.Steering_Behaviour behaviourType;
     public Transform target;
 
     public List<Transform> pathTargets;
+    public GameObject path;
 
     public bool targeting = false;
+    public bool active = true;
 
-    void Start()
+    public void TogglePauseBoids()
+    {
+        active = !active;
+    }
+
+    public void RefreshBoids()
     {
         boids = FindObjectsOfType<Boid>();
         foreach (Boid b in boids)
@@ -22,8 +29,13 @@ public class BoidManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        RefreshBoids();
+    }
     void Update()
     {
+        if (!active) return;
         for (int i = 0; i < boids.Length; i++)
         {
             if (behaviourType == Boid.Steering_Behaviour.Flocking)
@@ -61,12 +73,48 @@ public class BoidManager : MonoBehaviour
                     if (distance < current.settings.pathArriveDistance)
                     {
                         current.pathIndex++;
-                        if(current.pathIndex > pathTargets.Count - 1) current.pathIndex = 0;
+                        if (current.pathIndex > pathTargets.Count - 1) current.pathIndex = 0;
                     }
                     current.pathTarget = pathTargets[current.pathIndex];
                 }
             }
             boids[i].UpdateBoid(behaviourType, targeting);
+        }
+    }
+
+    public void ResetBoids()
+    {
+        foreach (Boid boid in boids)
+        {
+            DestroyImmediate(boid.gameObject);
+        }
+        RefreshBoids();
+        Debug.Log(boids.Length);
+    }
+
+    public void ChangeType(int val)
+    {
+        path.SetActive(false);
+        switch (val)
+        {
+            case 0:
+                behaviourType = Boid.Steering_Behaviour.Flocking;
+                break;
+            case 1:
+                behaviourType = Boid.Steering_Behaviour.PathGrapplingHooks;
+                path.SetActive(true);
+                break;
+            case 2:
+                behaviourType = Boid.Steering_Behaviour.DynamicWander;
+                break;
+            case 3:
+                behaviourType = Boid.Steering_Behaviour.DynamicArrive;
+                break;
+            case 4:
+                behaviourType = Boid.Steering_Behaviour.DynamicSeek;
+                break;
+
+            default: break;
         }
     }
 }

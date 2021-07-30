@@ -16,13 +16,14 @@ MonoBehaviour:
   maxSteerForce: 8
   arriveSlowRadius: 20
   avoidanceRadius: 1
+  pathArriveDistance: 2
   perceptionRadius: 2.5
   alignWeight: 2
   cohesionWeight: 1
   seperateWeight: 2.5
   targetWeight: 1
-  wanderCircleOffset: 5
-  wanderCircleRadius: 10
+  wanderCircleOffset: 3
+  wanderCircleRadius: 2
   obstacleMask:
     serializedVersion: 2
     m_Bits: 1536
